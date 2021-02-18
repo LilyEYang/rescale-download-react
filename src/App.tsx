@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { GlobalStyle } from './styles/GlobalStyle'
 
 import Greetings from './components/Greetings'
+import Download from './components/Download'
 
 const mainElement = document.createElement('div')
 mainElement.setAttribute('id', 'root')
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
+      <Download/>
       <Greetings />
     </>
   )
