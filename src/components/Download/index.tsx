@@ -37,6 +37,7 @@ class Download extends React.Component {
             <Panel>
               <p>Selected Files</p>
               <FileBox>
+                <p> Micah</p>
                 <Para1>Name</Para1>
                 <Para2>Size</Para2>
                 <ul>{this.listFile}</ul>
