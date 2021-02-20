@@ -1,8 +1,8 @@
 import React from "react";
 import { icons } from "react-icons";
 
-import { Panel, FileBox, FileList, SizeList } from "./styles";
-import { BsTrash } from react-icons/bs;
+import { Panel, FileBox, FileList, SizeList, FileButton, Para1, Para2 } from "./styles";
+import { BsTrash } from "react-icons/bs";
 
 class Download extends React.Component {
   fileList = [
@@ -22,21 +22,13 @@ class Download extends React.Component {
       size: "2.3 MB"
     }];
 
-  listFileName = this.fileList.map((file) =>
+  listFile = this.fileList.map((file) =>
   <li key={file.id}>
-    {file.fileName}
+    <FileButton><BsTrash/></FileButton>
+    <FileList>{file.fileName}</FileList>
+    <SizeList>{file.size}</SizeList>
   </li>
   );
-
-  listSize = this.fileList.map((file) =>
-  <li key={file.id}>
-    {file.size}
-  </li>
-  );
-
-
-
-
 
     render() {
         return (
@@ -45,11 +37,9 @@ class Download extends React.Component {
             <Panel>
               <p>Selected Files</p>
               <FileBox>
-                <FileList>{this.listFileName}</FileList>
-                <SizeList>{this.listSize}</SizeList>
-                <button>
-
-                </button>
+                <Para1>Name</Para1>
+                <Para2>Size</Para2>
+                <ul>{this.listFile}</ul>
               </FileBox>
             </Panel>
             <Panel>

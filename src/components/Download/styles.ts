@@ -3,30 +3,53 @@ import styled from 'styled-components'
 
 
 export const Panel = styled.div`
-    height: 100%;
-    width: 45%;
+    height: 300px;
+    width: 50%;
     padding: 25px;
     display: inline-block;
     border: 2px solid black;
+    position: relative;
 `;
 
 export const FileBox = styled.div`
-    width: 300px;
-    height: 100px;
+    li {
+        list-style-type: none;
+    }
+    position: absolute;
+    top: 70px;
+    left: 150px;
+    width: 400px;
+    height: 150px;
     border: 0.5px solid grey;
     padding: 20px;
-    margin: 40px;
     
 `;
 
 export const FileList = styled.li`
-    list-style-type: none;
+    width: 50%;
     float: left;
+    
 `;
 
 export const SizeList = styled.li`
-    list-style-type: none;
+    width: 50%;
+    position: relative;
+    top: -15px;
+    right: -150px;
+    align: center;
+    
+`;
+
+export const FileButton = styled.button`
     float: right;
 `;
 
-export const
+export const Para1 = styled.p`
+    float: left;
+    width: 47%;
+`;
+
+export const Para2 = styled.div`
+`;
+
+
