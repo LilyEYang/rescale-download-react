@@ -1,6 +1,7 @@
 import styled from 'styled-components' 
 
 
+
 export const Panel = styled.div`
     height: 100%;
     width: 45%;
@@ -10,8 +11,22 @@ export const Panel = styled.div`
 `;
 
 export const FileBox = styled.div`
-    width: 500px;
+    width: 300px;
+    height: 100px;
     border: 0.5px solid grey;
     padding: 20px;
     margin: 40px;
+    
 `;
+
+export const FileList = styled.li`
+    list-style-type: none;
+    float: left;
+`;
+
+export const SizeList = styled.li`
+    list-style-type: none;
+    float: right;
+`;
+
+export const

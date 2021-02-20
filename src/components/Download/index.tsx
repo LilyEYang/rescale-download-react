@@ -1,36 +1,55 @@
 import React from "react";
+import { icons } from "react-icons";
 
-import { Panel, FileBox } from "./styles";
+import { Panel, FileBox, FileList, SizeList } from "./styles";
+import { BsTrash } from react-icons/bs;
 
 class Download extends React.Component {
   fileList = [
     {
       id: 1,
-      fileName: "file1.txt"
+      fileName: "file1.txt",
+      size: "259.43 KB"
     },
     {
       id: 2,
-      fileName: "data1.txt"
+      fileName: "data1.txt",
+      size: "147.28 KB"
     },
     {
       id: 3,
-      fileName: "file2.txt"
+      fileName: "file2.txt",
+      size: "2.3 MB"
     }];
 
-  listItems = this.fileList.map((file) =>
+  listFileName = this.fileList.map((file) =>
   <li key={file.id}>
     {file.fileName}
   </li>
   );
 
+  listSize = this.fileList.map((file) =>
+  <li key={file.id}>
+    {file.size}
+  </li>
+  );
+
+
+
+
+
     render() {
         return (
-          <div className="header">
-            <h1 className="Download-section"> DOWNLOAD FILES </h1>
+          <div>
+            <h1> DOWNLOAD FILES </h1>
             <Panel>
               <p>Selected Files</p>
               <FileBox>
-                <ul>{this.listItems}</ul>
+                <FileList>{this.listFileName}</FileList>
+                <SizeList>{this.listSize}</SizeList>
+                <button>
+
+                </button>
               </FileBox>
             </Panel>
             <Panel>
