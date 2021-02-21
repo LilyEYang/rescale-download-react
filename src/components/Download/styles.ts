@@ -1,17 +1,17 @@
 import styled from 'styled-components' 
 
 export const Panel = styled.div`
-    height: 60vh;
-        width: 35vw;
-        flex: 1 1 auto;
-        padding: 30px;
-        margin: 30px;
+    height: 52vh;
+    width: 35vw;
+    flex: 1 1 0;
+    padding: 30px;
+    margin: 30px;
 
-        background: #FFFFFF;
-        border: 1px solid #939393;
-        box-sizing: border-box;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #939393;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
     
 
     .panelTitle {
@@ -62,8 +62,7 @@ export const Panel = styled.div`
 `
 
 export const Section = styled.div`
-    margin: 100px;
-    margin-top: 80px;
+    margin: 80px 100px 0 100px;
 
     .panels {
         display: flex;
@@ -78,5 +77,21 @@ export const Section = styled.div`
 
         color: #000000;
         margin-left: 25px;
+    }
+`
+
+export const Header = styled.div`
+    background: linear-gradient(90deg, #0F1336 0%, #1F5671 100%);
+
+    p {
+        font-family: Quicksand, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 48px;
+        line-height: 60px;
+
+        color: #FFFFFF;
+        text-align: center;
+        padding: 20px;
     }
 `

@@ -1,12 +1,15 @@
 import React from "react";
 
-import { Panel, Section } from "./styles";
+import { Panel, Section, Header } from "./styles";
 import Button from "./../Button/index";
 
 class Download extends React.Component {
     render() {
         return (
           <div className="header">
+            <Header>
+              <p>Rescale Transfer Manager</p>
+            </Header>
             <Section>
               <h1 className="download-title"> DOWNLOAD FILES FROM RESCALE </h1>
               <div className="panels">
