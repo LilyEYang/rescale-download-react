@@ -10,14 +10,16 @@ class Download extends React.Component {
             <Section>
               <h1 className="download-title"> DOWNLOAD FILES FROM RESCALE </h1>
               <div className="panels">
-                <Panel className="panel"> 
+                <Panel> 
                   <p> Hello </p>
                 </Panel>
-                <Panel className="panel">
+                <Panel>
                   <p className="panelTitle"> LOCAL </p>
-                  <p className="panelSubheading"> SELECTED DOWNLOAD DESTINATION </p>
-                  <p className="downloadDest"> Users/Downloads/Rescale </p>
-                  <Button>SELECT DOWNLOAD DESTINATION</Button>
+                    <p className="panelSubheading"> SELECTED DOWNLOAD DESTINATION </p>
+                    <p className="downloadDest"> Users/Downloads/Rescale </p>
+                    <div className="button">
+                      <Button>SELECT DOWNLOAD DESTINATION</Button>
+                    </div>
                 </Panel>
               </div>
             </Section>
