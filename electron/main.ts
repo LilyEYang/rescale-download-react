@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
@@ -31,6 +31,15 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+
+//Callback for uploading files
+ipcMain.on('upload', async (event, data) => {
+  console.log("[Backend] Uploading a File");
+
+})
+
+
 
 app.on('ready', createWindow)
   .whenReady()

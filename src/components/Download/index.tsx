@@ -51,7 +51,6 @@ class Download extends React.Component {
                   <div className="buttonLeftPanel">
                       <DownloadButton>DOWNLOAD</DownloadButton>
                   </div>
-
                   <FileTree>
                     <ul>
                     <li><i className= "folder"><BsFolder className="folderIcon"/></i>Root</li>
@@ -62,39 +61,6 @@ class Download extends React.Component {
                         </ul>
                     </ul>
                   </FileTree>
-                  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </Panel>
                 <Panel>
                   <p className="panelTitle"> LOCAL </p>
