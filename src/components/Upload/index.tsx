@@ -4,6 +4,7 @@ class Upload extends React.Component {
     render() {
         return (
         <p>Hello</p>
+        
         );
     }
 }

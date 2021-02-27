@@ -6,7 +6,8 @@ import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electro
 let mainWindow: Electron.BrowserWindow | null
 
 function createWindow () {
-  mainWindow = new BrowserWindow({
+  //creates a browser window - gives access to the encapsulating window
+  mainWindow = new BrowserWindow({   
     width: 1100,
     height: 700,
     backgroundColor: '#191622',
@@ -16,8 +17,10 @@ function createWindow () {
   })
 
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:4000')
+    //grabs the react app and display here
+    mainWindow.loadURL('http://localhost:4000') 
   } else {
+    //updating the location where we plan on loading react in distribution
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, 'renderer/index.html'),
@@ -27,23 +30,31 @@ function createWindow () {
     )
   }
 
+  //Emitted when the window is closed.
   mainWindow.on('closed', () => {
+    //Dereference the window objest, usually you would store windows.
+    //in an array if your app supports multi window. This is the time
+    //When you should delete the corresponding element
     mainWindow = null
   })
 }
 
 
-//Callback for uploading files
-ipcMain.on('upload', async (event, data) => {
-  console.log("[Backend] Uploading a File");
+// //Callback for uploading files
+// ipcMain.on('upload', async (event, data) => {
+//   console.log("[Backend] Uploading a File");
 
-})
+// })
 
 
-
+//This method will be called when electron has finished 
+//Initialization and is ready to create browser windows
+//Some APIs can only be used after this event occurs
 app.on('ready', createWindow)
+  // creates a window when the app is ready
   .whenReady()
   .then(() => {
+    // install react extensions if the app is run in dev mode
     if (process.env.NODE_ENV === 'development') {
       installExtension(REACT_DEVELOPER_TOOLS)
         .then((name) => console.log(`Added Extension:  ${name}`))
@@ -53,4 +64,5 @@ app.on('ready', createWindow)
         .catch((err) => console.log('An error occurred: ', err))
     }
   })
-app.allowRendererProcessReuse = true
+// ensure renderer processes are restarted on each navigation
+app.allowRendererProcessReuse = true 

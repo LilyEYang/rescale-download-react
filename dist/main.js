@@ -110,6 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 var mainWindow;
 
 function createWindow() {
+  //creates a browser window - gives access to the encapsulating window
   mainWindow = new electron__WEBPACK_IMPORTED_MODULE_0__["BrowserWindow"]({
     width: 1100,
     height: 700,
@@ -120,15 +121,29 @@ function createWindow() {
   });
 
   if (true) {
+    //grabs the react app and display here
     mainWindow.loadURL('http://localhost:4000');
-  } else {}
+  } else {} //Emitted when the window is closed.
+
 
   mainWindow.on('closed', function () {
+    //Dereference the window objest, usually you would store windows.
+    //in an array if your app supports multi window. This is the time
+    //When you should delete the corresponding element
     mainWindow = null;
   });
-}
+} // //Callback for uploading files
+// ipcMain.on('upload', async (event, data) => {
+//   console.log("[Backend] Uploading a File");
+// })
+//This method will be called when electron has finished 
+//Initialization and is ready to create browser windows
+//Some APIs can only be used after this event occurs
 
-electron__WEBPACK_IMPORTED_MODULE_0__["app"].on('ready', createWindow).whenReady().then(function () {
+
+electron__WEBPACK_IMPORTED_MODULE_0__["app"].on('ready', createWindow) // creates a window when the app is ready
+.whenReady().then(function () {
+  // install react extensions if the app is run in dev mode
   if (true) {
     electron_devtools_installer__WEBPACK_IMPORTED_MODULE_3___default()(electron_devtools_installer__WEBPACK_IMPORTED_MODULE_3__["REACT_DEVELOPER_TOOLS"]).then(function (name) {
       return console.log("Added Extension:  ".concat(name));
@@ -141,7 +156,8 @@ electron__WEBPACK_IMPORTED_MODULE_0__["app"].on('ready', createWindow).whenReady
       return console.log('An error occurred: ', err);
     });
   }
-});
+}); // ensure renderer processes are restarted on each navigation
+
 electron__WEBPACK_IMPORTED_MODULE_0__["app"].allowRendererProcessReuse = true;
 
 /***/ }),
