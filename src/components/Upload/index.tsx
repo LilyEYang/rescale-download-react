@@ -1,10 +1,13 @@
 import React from 'react'
+import Button from "./../Button/index";
 
 class Upload extends React.Component {
     render() {
         return (
-        <p>Hello</p>
-        
+        <div className="uploadButton">
+            <p>Hello</p>
+            <Button>UPLOAD</Button>
+        </div>
         );
     }
 }
