@@ -12,6 +12,16 @@ contextBridge.exposeInMainWorld(
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
             }
+        },
+        receive: (channel, func) => {
+            let validChannel = (channel == 'fromMain') || (channel == 'allFiles');
+            
+            // Attach a listener to the Renderer process
+            if (validChannel) {
+                // Deliberately strip event as it includes `sender` 
+                console.log('[Middleman] Attaching listener', channel);
+                ipcRenderer.on(channel, (event, ...args) => func(...args));
+            }
         }
     }
 );

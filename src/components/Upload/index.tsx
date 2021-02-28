@@ -1,12 +1,17 @@
 import React from 'react'
 import Button from "./../Button/index";
+declare var window: any;
 
 class Upload extends React.Component {
     render() {
         return (
         <div className="uploadButton">
             <p>Hello</p>
-            <Button>UPLOAD</Button>
+            <button onClick={() => {
+                    window.api.send('upload', '');
+                }}>
+                Upload
+            </button>
         </div>
         );
     }
