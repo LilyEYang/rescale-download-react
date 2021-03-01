@@ -1,25 +1,26 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, Notification } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
 
-const globalAny: any = global;
-const files = {};
-const request = require("request");
-const fs = require("fs");
 
-let mainWindow: Electron.BrowserWindow | null
+//const globalAny: any = global;
+let mainWindow: Electron.BrowserWindow;
 
-function createWindow () {
+async function createWindow () {
   //creates a browser window - gives access to the encapsulating window
   mainWindow = new BrowserWindow({   
     width: 1100,
     height: 700,
     backgroundColor: '#191622',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
+  console.log("Micah is here")
+  console.log(__dirname);
+  console.log(__filename);
 
   if (process.env.NODE_ENV === 'development') {
     //grabs the react app and display here
@@ -39,53 +40,55 @@ function createWindow () {
     //Dereference the window objest, usually you would store windows.
     //in an array if your app supports multi window. This is the time
     //When you should delete the corresponding element
-    mainWindow = null
+    mainWindow.destroy();
   });
 }
+
+// Just for testing
+ipcMain.on('toMain', (event, data) => {
+  console.log('Hello there');
+});
 
 //Callback for uploading files
 ipcMain.on('upload', async (event, data) => {
   console.log('[Backend] Uploading file');
-  
-  // Show the file upload dialog
-    globalAny.filepath = undefined;
 
-    var props = ['openFile', 'openDirectory'];
-    if (process.platform == 'linux' || process.platform == 'win32') {
-        props = ['openFile'];
-    }
+  const Axios = require('axios');
+    const FormData = require('form-data');
+    const Fs = require('fs');
 
-    dialog.showOpenDialog(BrowserWindow, {
-        title: 'Select the file to be uploaded',            
-        buttonLabel: 'Upload',
-        properties: props
+    // Show the file upload dialog
+
+    // Send a HTTP POST request to /upload with the file as multipart/form-data
+    dialog.showOpenDialog( mainWindow, {
+        properties: ['openFile'],
+        filters: [ 
+            { 
+                name: 'Text Files', 
+                extensions: ['txt', 'docx', 'json'] 
+            }, ],
     }).then(file => {
-        if(!file.canceled) {
-            globalAny.filepath = file.filePaths[0].toString();
-            console.log(globalAny.filepath);
+        if (!file.canceled) {
+            var filepath = file.filePaths[0].toString();
+            var formData = new FormData();
 
-            // Send a HTTP POST request to /upload with the file as multipart/form-data
-            var formData = {
-                uploadFile: fs.createReadStream(globalAny.filepath)
-            };
-            var req = request.post({
-                url: 'http://localhost:8080/upload',
-                formData: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            }, function optionalCallback(err, httpResponse, body) {
-                if (err) {
-                    return console.error('Upload failed:', err);
+            formData.append('uploadFile', Fs.createReadStream(filepath));
+            const uploadResponse = async () => {
+                try {
+                    const res = await Axios.post('http://localhost:8080/upload', formData,
+                    {
+                        headers:formData.getHeaders()
+                    })
+                } catch (err) {
+                    console.error(err);
                 }
-                console.log('Upload successful!  Server responded with:', body);
-            });
+            }
+            uploadResponse();
+            new Notification( { title: 'Codebase Transfer Manager', body: "File Was Uploaded Successfully" } ).show();
         }
     }).catch(err => {
         console.log(err);
-    });
-
-    console.log(files);
+    })
 })
 
 
@@ -106,5 +109,10 @@ app.on('ready', createWindow)
         .catch((err) => console.log('An error occurred: ', err))
     }
   })
+
+  app.on("activate", () => {
+    if (mainWindow === null) createWindow();
+});
+
 // ensure renderer processes are restarted on each navigation
 app.allowRendererProcessReuse = true 
