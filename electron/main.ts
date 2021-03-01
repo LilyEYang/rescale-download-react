@@ -7,6 +7,8 @@ import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electro
 //const globalAny: any = global;
 let mainWindow: Electron.BrowserWindow;
 
+const isDev = require("electron-is-dev");
+
 async function createWindow () {
   //creates a browser window - gives access to the encapsulating window
   mainWindow = new BrowserWindow({   
@@ -15,26 +17,27 @@ async function createWindow () {
     backgroundColor: '#191622',
     webPreferences: {
       nodeIntegration: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, "../electron/preload,js")
     }
   })
   console.log("Micah is here")
   console.log(__dirname);
   console.log(__filename);
 
-  if (process.env.NODE_ENV === 'development') {
-    //grabs the react app and display here
-    mainWindow.loadURL('http://localhost:4000') 
-  } else {
-    //updating the location where we plan on loading react in distribution
-    mainWindow.loadURL(
-      url.format({
-        pathname: path.join(__dirname, 'renderer/index.html'),
-        protocol: 'file:',
-        slashes: true
-      })
-    )
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   //grabs the react app and display here
+  //   mainWindow.loadURL('http://localhost:4000') 
+  // } else {
+  //   //updating the location where we plan on loading react in distribution
+  //   mainWindow.loadURL(
+  //     url.format({
+  //       pathname: path.resolve(__dirname, '..', 'index.html'),
+  //       protocol: 'file:',
+  //       slashes: true
+  //     })
+  //   )
+  // }
+
   //Emitted when the window is closed.
   mainWindow.on('closed', () => {
     //Dereference the window objest, usually you would store windows.
@@ -42,6 +45,12 @@ async function createWindow () {
     //When you should delete the corresponding element
     mainWindow.destroy();
   });
+
+  mainWindow.loadURL(
+    isDev
+        ? "http://localhost:3000"
+        : `file://${path.join(__dirname, "../index.html")}`
+);
 }
 
 // Just for testing
